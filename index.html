@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <script src="src/frest.js"></script>
+    <script>
+        function start() {
+            var urls = ['https://jsonplaceholder.typicode.com/posts/1',
+                'https://jsonplaceholder.typicode.com/posts/2',
+                'https://jsonplaceholder.typicode.com/posts/3'];
+            var result = frest.getAll(urls);
+            result.then(response => {
+                console.log('frest response...');
+                console.log(response);
+            });
+            // let waterfall_result = frest_waterfall(urls);
+            // waterfall_result.then(response => {
+            //     console.log('frest_waterfall response...');
+            //     console.log(response);
+            // });
+            // var data = [
+            //     {
+            //         url: 'https://jsonplaceholder.typicode.com/posts/1'
+            //     },
+            //     {
+            //         url: 'https://jsonplaceholder.typicode.com/comments?postId={param}',
+            //         param: 'id'
+            //     }];
+            // var smart_result = frest_smart(data);
+            // smart_result.then(response => {
+            //     console.log('smart_result response...');
+            //     console.log(response);
+            // });
+        }
+    </script>
+</head>
+
+<body onload="start()">
+    <h1>Facade REST Library</h1>
+</body>
+
+</html>
