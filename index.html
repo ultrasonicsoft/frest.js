@@ -3,6 +3,18 @@
 <head>
     <script src="src/frest.js"></script>
     <script>
+        function getAll() {
+            let urls = document.getElementById('allUrls').textContent;
+            urls = urls.split(',');
+            console.log(urls);
+            let result = frest.getAll(urls);
+            result.then(response => {
+                console.log('frest response...');
+                console.log(response);
+                let getAllResult = document.getElementById('getAllResult');
+                getAllResult.textContent = JSON.stringify(response, null, 4);
+            });
+        }
         function start() {
             var urls = ['https://jsonplaceholder.typicode.com/posts/1',
                 'https://jsonplaceholder.typicode.com/posts/2',
@@ -34,8 +46,23 @@
     </script>
 </head>
 
-<body onload="start()">
+<body>
     <h1>Facade REST Library</h1>
+
+    <div>
+        <h3>
+            <code>getAll()</code> Example:</h3>
+        <textarea name="allUrls" id="allUrls" cols="100" rows="5">https://jsonplaceholder.typicode.com/posts/1,
+https://jsonplaceholder.typicode.com/posts/2,
+https://jsonplaceholder.typicode.com/posts/3
+        </textarea>
+        <div>
+            <button id="btnGetAll" onclick="getAll()">Get All</button>
+        </div>
+        <div>
+            <textarea name="getAllResult" id="getAllResult" cols="100" rows="10"></textarea>
+        </div>
+    </div>
 </body>
 
 </html>

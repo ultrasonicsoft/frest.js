@@ -4,15 +4,14 @@ const frest = {
     getAll: function (urls) {
         let allPromises = [];
         urls.forEach(currentUrl => {
-            allPromises.push(fetch(currentUrl));
+            allPromises.push(fetch(currentUrl.trim()));
         });
-
         return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
     },
     getSingle: function (url) {
         return fetch(url).then(response => response.json());
     },
-    waterfall: function (urls) {
+    waterfall: async function (urls) {
         let count = urls.length - 1;
         let index = 0;
         var responses = [];
@@ -24,7 +23,7 @@ const frest = {
         }
         return await responses;
     },
-    casecaded: function (data) {
+    casecaded: async function (data) {
         let responses = [];
         for (let index = 0; index < data.length; index++) {
             let request = data[index];
