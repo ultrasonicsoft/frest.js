@@ -3,18 +3,88 @@
 <head>
     <script src="src/frest.js"></script>
     <script>
+
+
         function getAll() {
-            let urls = document.getElementById('allUrls').textContent;
-            urls = urls.split(',');
-            console.log(urls);
+            let urls = ['https://jsonplaceholder.typicode.com/posts/1',
+                'https://jsonplaceholder.typicode.com/posts/2',
+                'https://jsonplaceholder.typicode.com/posts/3']
             let result = frest.getAll(urls);
             result.then(response => {
                 console.log('frest response...');
-                console.log(response);
-                let getAllResult = document.getElementById('getAllResult');
-                getAllResult.textContent = JSON.stringify(response, null, 4);
+                console.log(JSON.stringify(response, null, 4));
             });
         }
+
+        function postAll() {
+            let putRequestData = [
+                {
+                    url: 'https://jsonplaceholder.typicode.com/posts',
+                    data: {
+                        "userId": 1,
+                        "id": 1,
+                        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                    }
+                },
+                {
+                    url: 'https://jsonplaceholder.typicode.com/posts',
+                    data: {
+                        "userId": 2,
+                        "id": 2,
+                        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                    }
+                },
+            ];
+
+            let result = frest.postAll(putRequestData);
+            result.then(response => {
+                console.log('postAll response...');
+                console.log(JSON.stringify(response, null, 4));
+            });
+        }
+
+        function putAll() {
+            let putRequestData = [
+                {
+                    url: 'https://jsonplaceholder.typicode.com/posts/1',
+                    data: {
+                        "userId": 1,
+                        "id": 1,
+                        "title": "updated-sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                    }
+                },
+                {
+                    url: 'https://jsonplaceholder.typicode.com/posts/2',
+                    data: {
+                        "userId": 2,
+                        "id": 2,
+                        "title": "updated-sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                    }
+                },
+            ];
+
+            let result = frest.putAll(putRequestData);
+            result.then(response => {
+                console.log('putAlll response...');
+                console.log(JSON.stringify(response, null, 4));
+            });
+        }
+
+        function deleteAll() {
+            let urls = ['https://jsonplaceholder.typicode.com/posts/1',
+                'https://jsonplaceholder.typicode.com/posts/2',
+                'https://jsonplaceholder.typicode.com/posts/3']
+            let result = frest.deleteAll(urls);
+            result.then(response => {
+                console.log('deleteAll response...');
+                console.log(JSON.stringify(response, null, 4));
+            });
+        }
+
         function start() {
             var urls = ['https://jsonplaceholder.typicode.com/posts/1',
                 'https://jsonplaceholder.typicode.com/posts/2',
@@ -48,20 +118,20 @@
 
 <body>
     <h1>Facade REST Library</h1>
+    <div>
+        <button onclick="getAll()">getAll()</button>
+    </div>
 
     <div>
-        <h3>
-            <code>getAll()</code> Example:</h3>
-        <textarea name="allUrls" id="allUrls" cols="100" rows="5">https://jsonplaceholder.typicode.com/posts/1,
-https://jsonplaceholder.typicode.com/posts/2,
-https://jsonplaceholder.typicode.com/posts/3
-        </textarea>
-        <div>
-            <button id="btnGetAll" onclick="getAll()">Get All</button>
-        </div>
-        <div>
-            <textarea name="getAllResult" id="getAllResult" cols="100" rows="10"></textarea>
-        </div>
+        <button onclick="postAll()">postAll()</button>
+    </div>
+
+    <div>
+        <button onclick="putAll()">putAll()</button>
+    </div>
+
+    <div>
+        <button onclick="deleteAll()">deleteAll()</button>
     </div>
 </body>
 

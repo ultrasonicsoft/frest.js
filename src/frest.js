@@ -8,6 +8,45 @@ const frest = {
         });
         return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
     },
+
+    postAll: function (requests) {
+        let allPromises = [];
+        for (let index = 0; index < requests.length; index++) {
+            const currentRequest = requests[index];
+            let currentResult = fetch(currentRequest.url, {
+                method: 'POST',
+                body: currentRequest.data
+            })
+            allPromises.push(currentResult);
+        }
+        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
+    },
+
+    putAll: function (requests) {
+        let allPromises = [];
+        for (let index = 0; index < requests.length; index++) {
+            const currentRequest = requests[index];
+            let currentResult = fetch(currentRequest.url, {
+                method: 'PUT',
+                body: currentRequest.data
+            })
+            allPromises.push(currentResult);
+        }
+        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
+    },
+
+    deleteAll: function (requests) {
+        let allPromises = [];
+        for (let index = 0; index < requests.length; index++) {
+            const currentRequest = requests[index];
+            let currentResult = fetch(currentRequest, {
+                method: 'DELETE'
+            })
+            allPromises.push(currentResult);
+        }
+        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.status)));
+    },
+
     getSingle: function (url) {
         return fetch(url).then(response => response.json());
     },
