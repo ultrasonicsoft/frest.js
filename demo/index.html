@@ -85,33 +85,30 @@
             });
         }
 
-        function start() {
-            var urls = ['https://jsonplaceholder.typicode.com/posts/1',
+        function waterfall() {
+            let urls = ['https://jsonplaceholder.typicode.com/posts/1',
                 'https://jsonplaceholder.typicode.com/posts/2',
-                'https://jsonplaceholder.typicode.com/posts/3'];
-            var result = frest.getAll(urls);
+                'https://jsonplaceholder.typicode.com/posts/3']
+            let result = frest.waterfall(urls);
             result.then(response => {
-                console.log('frest response...');
-                console.log(response);
+                console.log('waterfall response...');
+                console.log(JSON.stringify(response, null, 4));
             });
-            // let waterfall_result = frest_waterfall(urls);
-            // waterfall_result.then(response => {
-            //     console.log('frest_waterfall response...');
-            //     console.log(response);
-            // });
-            // var data = [
-            //     {
-            //         url: 'https://jsonplaceholder.typicode.com/posts/1'
-            //     },
-            //     {
-            //         url: 'https://jsonplaceholder.typicode.com/comments?postId={param}',
-            //         param: 'id'
-            //     }];
-            // var smart_result = frest_smart(data);
-            // smart_result.then(response => {
-            //     console.log('smart_result response...');
-            //     console.log(response);
-            // });
+        }
+
+        function casecaded() {
+            var requests = [
+                {
+                    url: 'https://jsonplaceholder.typicode.com/posts/1'
+                },
+                {
+                    url: 'https://jsonplaceholder.typicode.com/comments?postId={param}',
+                    param: 'id'
+                }];
+            let result = frest.casecaded(requests);
+            result.then(response => {
+                console.log(JSON.stringify(response, null, 4));
+            });
         }
     </script>
 </head>
@@ -132,6 +129,14 @@
 
     <div>
         <button onclick="deleteAll()">deleteAll()</button>
+    </div>
+
+    <div>
+        <button onclick="waterfall()">waterfall()</button>
+    </div>
+
+    <div>
+        <button onclick="casecaded()">casecaded()</button>
     </div>
 </body>
 
