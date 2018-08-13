@@ -3,6 +3,35 @@
 const frest = {
     getAll: async function (urls) {
         let requests = urls.map(url => fetch(url));
+        return await this.parseResult(requests);
+    },
+    postAll: async function (postRequests) {
+        let requests = postRequests.map(request => fetch(request.url,
+            {
+                method: 'POST',
+                body: request.data
+            }));
+
+        return await this.parseResult(requests);
+    },
+    putAll: async function (putRequests) {
+        let requests = putRequests.map(request => fetch(request.url,
+            {
+                method: 'PUT',
+                body: request.data
+            }));
+
+        return await this.parseResult(requests);
+    },
+    deleteAll: async function (deleteRequests) {
+        let requests = deleteRequests.map(request => fetch(request,
+            {
+                method: 'DELETE'
+            }));
+
+        return await this.parseResult(requests);
+    },
+    parseResult: async function (requests) {
         let result = [];
 
         return await Promise.all(requests)
@@ -21,50 +50,6 @@ const frest = {
                 return result;
             });
     },
-
-    postAll: async function (requests) {
-        let allPromises = [];
-        for (let index = 0; index < requests.length; index++) {
-            const currentRequest = requests[index];
-            let currentResult = fetch(currentRequest.url, {
-                method: 'POST',
-                body: currentRequest.data
-            })
-            allPromises.push(currentResult);
-        }
-
-        Promise.all(allPromises).then(function (values) {
-            debugger;
-            console.log(values);
-        });
-        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
-    },
-
-    putAll: function (requests) {
-        let allPromises = [];
-        for (let index = 0; index < requests.length; index++) {
-            const currentRequest = requests[index];
-            let currentResult = fetch(currentRequest.url, {
-                method: 'PUT',
-                body: currentRequest.data
-            })
-            allPromises.push(currentResult);
-        }
-        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
-    },
-
-    deleteAll: function (requests) {
-        let allPromises = [];
-        for (let index = 0; index < requests.length; index++) {
-            const currentRequest = requests[index];
-            let currentResult = fetch(currentRequest, {
-                method: 'DELETE'
-            })
-            allPromises.push(currentResult);
-        }
-        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.status)));
-    },
-
     getSingle: function (url) {
         return fetch(url).then(response => response.json());
     },
