@@ -1,15 +1,28 @@
 'use strict';
 
 const frest = {
-    getAll: function (urls) {
-        let allPromises = [];
-        urls.forEach(currentUrl => {
-            allPromises.push(fetch(currentUrl.trim()));
-        });
-        return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
+    getAll: async function (urls) {
+        let requests = urls.map(url => fetch(url));
+        let result = [];
+
+        return await Promise.all(requests)
+            .then(responses => {
+                for (let response of responses) {
+                    result.push({ "status": response.status, "body": {} })
+                }
+                return responses;
+            })
+            .then(responses => Promise.all(responses.map(r => r.json())))
+            .then(data => {
+                for (let index = 0; index < data.length; index++) {
+                    const element = data[index];
+                    result[index].body = element;
+                }
+                return result;
+            });
     },
 
-    postAll: function (requests) {
+    postAll: async function (requests) {
         let allPromises = [];
         for (let index = 0; index < requests.length; index++) {
             const currentRequest = requests[index];
@@ -19,6 +32,11 @@ const frest = {
             })
             allPromises.push(currentResult);
         }
+
+        Promise.all(allPromises).then(function (values) {
+            debugger;
+            console.log(values);
+        });
         return Promise.all(allPromises).then(responses => Promise.all(responses.map(r => r.json())));
     },
 
