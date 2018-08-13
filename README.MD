@@ -1,19 +1,19 @@
 # frest.js
 
-> A JavaScript library for firing multiple HTTP REST commands in one go. Just 2kb.
+> Send multiple HTTP REST requests in a single request and get aggregated response. Just 2kb.
 
 ## Why
 
-Copying text to the clipboard shouldn't be hard. It shouldn't require dozens of steps to configure or hundreds of KBs to load. But most of all, it shouldn't depend on Flash or any bloated framework.
+A typical web application generally needs to sends multiple HTTP REST requests one by one and then process their response. Managing multiple promise callbacks is tedious.  
 
-That's why clipboard.js exists.
+That's why frest.js exists.
 
 ## Install
 
 You can get it on npm.
 
 ```
-npm install clipboard --save
+npm install frest --save
 ```
 
 Or if you're not into package management, just [download a ZIP](https://github.com/zenorocha/clipboard.js/archive/master.zip) file.
